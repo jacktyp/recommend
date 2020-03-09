@@ -14,6 +14,7 @@
     <modules>
         <module>data-load</module>
         <module>statistics-recommender</module>
+        <module>offline-recommder</module>
     </modules>
 
     <dependencyManagement>
