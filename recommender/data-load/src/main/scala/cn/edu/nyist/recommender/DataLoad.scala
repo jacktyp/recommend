@@ -19,8 +19,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
   * categories    分类
   * tags          UGC标签
   */
-case class Product(productId: Int,name: String,imageUrl: String,categories: String,tags: String)
-
+case class Product( productId: Int, name: String, imageUrl: String, categories: String, tags: String )
 /**
   * 评分数据集
   *  userId       用户ID
@@ -28,10 +27,9 @@ case class Product(productId: Int,name: String,imageUrl: String,categories: Stri
   * rating        评分
   * timestamp     时间戳
   */
-case class Rating(userId: Int,product: Int, score: Double,timestamp: Int)
+case class Rating( userId: Int, productId: Int, score: Double, timestamp: Int )
 
-
-case class TestDF(str1: String,str2: String, str3: String)
+//case class TestDF(str1: String,str2: String, str3: String)
 
 /**
   * MongoDB配置
@@ -40,6 +38,9 @@ case class TestDF(str1: String,str2: String, str3: String)
   */
 case class MongoConfig(uri: String,db: String)
 
+/**
+  * 数据加载
+  */
 object DataLoad {
   //数据路径
   val PRODUCT_DATA_PATH = "E:\\Software\\IdeaProjects\\recommend\\recommender\\data-load\\src\\main\\resources\\products.csv"
@@ -81,13 +82,12 @@ object DataLoad {
     implicit val mongoConfig = MongoConfig( config("mongo.uri"), config("mongo.db") )
 
     /*ratingDF.show()
-
     productDF.show()*/
     //存进数据库
     storeDFToMongoDB(productDF,MONGODB_PRODUCT_COLLECTION)
     storeDFToMongoDB(ratingDF,MONGODB_RATING_COLLECTION)
 
-
+    spark.stop()
   }
 
   //存进mongodb
